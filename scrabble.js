@@ -21,8 +21,10 @@ Scrabble.prototype.score = function(word) {
   // Loop over each letter in word, checking against each score key
   for(var i = 0; i < word.length; i++){
     for (var key in scoreChart) {
-      if(key.indexOf(word[i]) >= 0) {
-        total += scoreChart[key];
+      if(scoreChart.hasOwnProperty(key)) {
+        if(key.indexOf(word[i]) >= 0) {
+          total += scoreChart[key];
+        }
       }
     }
   }
@@ -128,10 +130,55 @@ Player.prototype.highestWordScore = function() {
 
 
 
+var Board = function(){
+  this.board = this.newBoard();
+};
 
-game = new Scrabble();
-console.log(game.helloWorld());
-console.log(game.highestScoreFrom(["a", "b"]));
+Board.prototype.newBoard = function() {
+  // a Scrabble board is 15x15
+  var newBoard = [];
+  var line = [];
+  for (var i = 0; i < 15; i++) {
+    line.push(null);
+  }
+  for (var j = 0; j < 15; j++) {
+    newBoard.push(line);
+  }
+  return newBoard;
+};
+
+Board.prototype.checkAvailability = function(word, startSquare, direction) {
+  var wordLength = word.length;
+  // check if there's a contiguous amount of null values in each line
+  // e.g startSquare [0,0] - top left corner
+  // with direction "across" TODO: check valid direction
+  if (direction === "across") {
+    for (var i = 0; i < wordLength; i++) {
+      if ( this.board[startSquare[0]][startSquare[1] + i] !== null) {
+        return false;
+      }
+    }
+  }
+  else if (direction === "down") {
+    for (var j = 0; j < wordLength; j++) {
+      if ((startSquare[0] + j) > 14 || this.board[startSquare[0] + j][startSquare[1]] !== null) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+b = new Board();
+b.newBoard();
+console.log(b.checkAvailability("hello", [11,0], "down"));
+
+
+
+
+// game = new Scrabble();
+// console.log(game.helloWorld());
+// console.log(game.highestScoreFrom(["a", "b"]));
 
 // console.log(game.highestScoreFrom(["xxxbb", "kkkkkkk", "zzz", "qqq", "word", "hi"]));
 
