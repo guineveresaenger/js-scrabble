@@ -51,35 +51,23 @@ Scrabble.prototype.score = function(word) {
 
 Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
 
-  console.log("HI HELLO NEW FUNCTION");
-  console.log(this.score("jj"));
-
   var scores = {};
 
   // Assign scores to each word
   for (var i = 0; i < arrayOfWords.length; i++) {
     scores[arrayOfWords[i]] = this.score(arrayOfWords[i]);
   }
-  console.log(scores);
-  console.log(Object.values(scores));
 
   // get largest score regardless of duplicates
-  function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
-  }
+  var maxScore = Math.max.apply(null, Object.values(scores));
 
-  var maxScore = getMaxOfArray(Object.values(scores));
-
-  // get all poential winning words
+  // get all potential winning words
   var potentialWinners = [];
 
   for (var word in scores) {
     if(scores.hasOwnProperty(word)) {
-      console.log("This is the word: " + word + " and the score: " + scores[word]);
       if (scores[word] == maxScore) {
-        console.log("A winner is: " + word);
         potentialWinners.push(word);
-        console.log(potentialWinners);
       }
     }
   }
@@ -89,13 +77,23 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
     return potentialWinners[0];
   }
   else {
+    // return seven-letter word if there is one (we assume there's only one...)
     for (var j = 0; j < potentialWinners.length; j++) {
       if (potentialWinners[j].length == 7) {
         return potentialWinners[j];
       }
     }
-    // TODO: return shortest word!
+    // return shortest word
+    var min = potentialWinners[0].length;
+    var highestWord = potentialWinners[0];
+    for (var k = 0; k < potentialWinners.length; k ++) {
 
+      if(min > potentialWinners[k].length) {
+        min = potentialWinners[k].length;
+        highestWord = potentialWinners[k];
+      }
+    }
+    return highestWord;
   }
 
 };
@@ -103,6 +101,6 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
 game = new Scrabble();
 console.log(game.helloWorld());
 // console.log(game.score("zzz"));
-game.highestScoreFrom(["zzz", "qqq", "word", "hi"]);
+console.log(game.highestScoreFrom(["xxxbb", "zzz", "qqq", "word", "hi"]));
 
 module.exports = Scrabble;
