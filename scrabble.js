@@ -8,46 +8,26 @@ Scrabble.prototype.helloWorld = function() {
 Scrabble.prototype.score = function(word) {
   word = word.toLowerCase();
   var total = 0;
-  // var scoreChart = {
-  //   1: "aeioulnrst",
-  //   2: "dg",
-  //   3: "bcmp",
-  //   4: "fhvwy",
-  //   5: "k",
-  //   8: "jx",
-  //   10: "qz"
-  // };
+  var scoreChart = {
+    "aeioulnrst": 1,
+    "dg": 2,
+    "bcmp": 3,
+    "fhvwy": 4,
+    "k": 5,
+    "jx": 8,
+    "qz": 10
+  };
+
+  // Loop over each letter in word, checking against each score key
   for(var i = 0; i < word.length; i++){
-    switch(true) {
-      case ("aeioulnrst".indexOf(word[i]) >= 0):
-        total += 1;
-        break;
-      case ("dg".indexOf(word[i]) >=0):
-        total += 2;
-        break;
-      case ("bcmp".indexOf(word[i]) >=0):
-        total += 3;
-        break;
-      case ("fhvwy".indexOf(word[i]) >=0):
-        total += 4;
-        break;
-      case ("k".indexOf(word[i]) >=0):
-        total += 5;
-        break;
-      case ("jx".indexOf(word[i]) >=0):
-        total += 8;
-        break;
-      case ("qz".indexOf(word[i]) >=0):
-        total += 10;
-        break;
-      default: {
-        return 'Sorry, but this word contains an invalid character.';
+    for (var key in scoreChart) {
+      if(key.indexOf(word[i]) >= 0) {
+        total += scoreChart[key];
       }
     }
   }
   return total;
 };
-
 
 Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
 
@@ -61,9 +41,8 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
   // get largest score regardless of duplicates
   var maxScore = Math.max.apply(null, Object.values(scores));
 
-  // get all potential winning words
+  // get all words with the largest score
   var potentialWinners = [];
-
   for (var word in scores) {
     if(scores.hasOwnProperty(word)) {
       if (scores[word] == maxScore) {
@@ -145,12 +124,16 @@ Player.prototype.highestScoringWord = function() {
 
 Player.prototype.highestWordScore = function() {
   return this.game.score(this.highestScoringWord());
-}; 
+};
+
+
+
 
 game = new Scrabble();
 console.log(game.helloWorld());
+console.log(game.highestScoreFrom(["a", "b"]));
 
-console.log(game.highestScoreFrom(["xxxbb", "kkkkkkk", "zzz", "qqq", "word", "hi"]));
+// console.log(game.highestScoreFrom(["xxxbb", "kkkkkkk", "zzz", "qqq", "word", "hi"]));
 
 // player = new Player("Guin");
 // console.log(player.helloWorld());
