@@ -18,13 +18,12 @@ Scrabble.prototype.score = function(word) {
     "qz": 10
   };
 
+
   // Loop over each letter in word, checking against each score key
   for(var i = 0; i < word.length; i++){
     for (var key in scoreChart) {
-      if(scoreChart.hasOwnProperty(key)) {
-        if(key.indexOf(word[i]) >= 0) {
-          total += scoreChart[key];
-        }
+      if(key.indexOf(word[i]) >= 0) {
+        total += scoreChart[key];
       }
     }
   }
@@ -46,10 +45,8 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
   // get all words with the largest score
   var potentialWinners = [];
   for (var word in scores) {
-    if(scores.hasOwnProperty(word)) {
-      if (scores[word] == maxScore) {
-        potentialWinners.push(word);
-      }
+    if (scores[word] == maxScore) {
+      potentialWinners.push(word);
     }
   }
 
@@ -176,9 +173,9 @@ console.log(b.checkAvailability("hello", [11,0], "down"));
 
 
 
-// game = new Scrabble();
-// console.log(game.helloWorld());
-// console.log(game.highestScoreFrom(["a", "b"]));
+game = new Scrabble();
+console.log(game.helloWorld());
+console.log(game.highestScoreFrom(["a", "b", "z"]));
 
 // console.log(game.highestScoreFrom(["xxxbb", "kkkkkkk", "zzz", "qqq", "word", "hi"]));
 
