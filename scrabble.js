@@ -98,9 +98,19 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
 
 };
 
+var Player = function() {};
+
+Player.prototype.helloWorld = function () {
+  return "Hi I'm playing Scrabble.";
+};
+
+
 game = new Scrabble();
 console.log(game.helloWorld());
 // console.log(game.score("zzz"));
 console.log(game.highestScoreFrom(["xxxbb", "zzz", "qqq", "word", "hi"]));
+
+player = new Player();
+console.log(player.helloWorld());
 
 module.exports = Scrabble;
