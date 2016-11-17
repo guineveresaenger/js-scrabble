@@ -148,7 +148,7 @@ Board.prototype.checkAvailability = function(word, startSquare, direction) {
   var wordLength = word.length;
   // check if there's a contiguous amount of null values in each line
   // e.g startSquare [0,0] - top left corner
-  // with direction "across" TODO: check valid direction
+  // with direction "across" TODO: check validity of direction
   if (direction === "across") {
     for (var i = 0; i < wordLength; i++) {
       if ( this.board[startSquare[0]][startSquare[1] + i] !== null) {
@@ -165,52 +165,6 @@ Board.prototype.checkAvailability = function(word, startSquare, direction) {
   }
   return true;
 };
-
-b = new Board();
-b.newBoard();
-console.log(b.checkAvailability("hello", [11,0], "down"));
-
-
-
-
-game = new Scrabble();
-console.log(game.helloWorld());
-console.log(game.highestScoreFrom(["a", "b", "z"]));
-
-// console.log(game.highestScoreFrom(["xxxbb", "kkkkkkk", "zzz", "qqq", "word", "hi"]));
-
-// player = new Player("Guin");
-// console.log(player.helloWorld());
-// console.log(player.name);
-// console.log(player.plays);
-// player.play("Hello");
-// console.log(player.game.score("Hello"));
-// console.log(player.plays);
-// player.play("Elefant");
-// console.log(player.game.score("Elefant"));
-// console.log(player.plays);
-// player.play("zzz");
-// console.log(player.game.score("zzz"));
-// console.log(player.plays);
-// console.log(player.totalScore());
-// console.log(player.hasWon());
-// console.log("******************");
-// player.play("zzz");
-// console.log(player.plays);
-// console.log(player.totalScore());
-// console.log(player.hasWon());
-// console.log("******************");
-// player.play("zzz");
-// console.log(player.plays);
-// console.log(player.totalScore());
-// console.log(player.hasWon());
-// console.log("******************");
-// player.play("zzz");
-// console.log(player.plays);
-// console.log(player.totalScore());
-// console.log(player.hasWon());
-// console.log(player.highestScoringWord());
-// console.log(player.highestWordScore());
 
 
 module.exports = Scrabble;
